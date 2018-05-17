@@ -1,12 +1,16 @@
 require 'jbundler'
 require 'java'
 
-java_import 'org.yaml.snakeyaml.events.AliasEvent'
+java_import 'org.yaml.snakeyaml.Yaml'
+java_import 'java.io.FileInputStream'
 
-class TestClass
-  def my_method
-    puts AliasEvent.methods
+class YamlReader
+  def read
+    stream = FileInputStream.new('./test.yml')
+    result = Yaml.new.load(stream)
+    stream.close
+    puts result
   end
 end
 
-TestClass.new.my_method
+YamlReader.new.read
